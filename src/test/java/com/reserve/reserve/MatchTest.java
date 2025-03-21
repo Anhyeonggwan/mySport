@@ -14,12 +14,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.reserve.reserve.config.JPAConfig;
 import com.reserve.reserve.dto.CancelPlayer;
 import com.reserve.reserve.dto.CreateMatch;
 import com.reserve.reserve.dto.CreateMatchPlayer;
+import com.reserve.reserve.dto.MatchListRequest;
 import com.reserve.reserve.dto.response.MatchDetailDto;
 import com.reserve.reserve.dto.response.MatchResponseDto;
 import com.reserve.reserve.dto.search.MatchSearchDto;
@@ -55,11 +60,30 @@ public class MatchTest {
     private MatchPlayerRepository matchPlayerRepository;
 
     @Autowired
+    private MatchRepository matchRepository;
+
+    @Autowired
     EntityManager manager;
 
     @AfterEach
     void afterEach(){
 
+    }
+
+    @Test
+    @DisplayName("매치 페이징 테스트")
+    void matchPagingTest(){
+        /* given */
+        MatchListRequest request = MatchListRequest.builder()
+        .pageNumber(1)
+        .pageSize(10)
+        .build();
+        //Pageable pageable = PageRequest.of(0, 10, Sort.by("idx"));
+
+        /* when */
+        //Page
+        //Page<Match> result = matchRepository.findAll(pageable);
+        System.out.println("test >>> 1");
     }
 
     @Test

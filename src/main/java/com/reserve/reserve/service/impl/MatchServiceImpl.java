@@ -2,12 +2,18 @@ package com.reserve.reserve.service.impl;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.reserve.reserve.dto.CancelPlayer;
 import com.reserve.reserve.dto.CreateMatch;
 import com.reserve.reserve.dto.CreateMatchPlayer;
+import com.reserve.reserve.dto.MatchListRequest;
 import com.reserve.reserve.dto.response.MatchDetailDto;
+import com.reserve.reserve.dto.response.MatchPageResponseDto;
 import com.reserve.reserve.dto.response.MatchResponseDto;
 import com.reserve.reserve.dto.search.MatchSearchDto;
 import com.reserve.reserve.entity.Court;
@@ -37,6 +43,15 @@ public class MatchServiceImpl implements MatchService{
     private final MatchCustomRepositury matchCustomRepositury;
     private final MatchPlayerRepository matchPlayerRepository;
     private final CourtRepository courtRepository;
+
+    @Override
+    public Page<MatchPageResponseDto> getAllMatches(MatchListRequest request) {
+        Pageable pageable = PageRequest.of(request.getPageNumber(), request.getPageSize(), Sort.by("idx").descending());
+        
+        Page<MatchPageResponseDto> matchPage = matchCustomRepositury.getMatches(request, pageable);
+        
+        return matchPage;
+    }
 
     @Override
     public MatchDetailDto getMatchDetail(Long matchId) {
