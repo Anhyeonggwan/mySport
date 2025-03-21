@@ -43,7 +43,9 @@ public class MatchServiceImpl implements MatchService{
         Match match = matchRepository.findById(matchId)
         .orElseThrow(() -> new ApiException("404", "매치 정보가 존재하지 않습니다."));
 
-        return MatchDetailDto.toMatchDetailDto(match);
+        int count = matchPlayerRepository.countByMatchIdx(matchId);
+
+        return MatchDetailDto.toMatchDetailDto(match, count);
     }
 
     @Override

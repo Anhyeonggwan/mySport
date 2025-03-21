@@ -3,6 +3,7 @@ package com.reserve.reserve.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.reserve.reserve.dto.CreateCourt;
+import com.reserve.reserve.dto.ModifyCourt;
 import com.reserve.reserve.entity.Court;
 import com.reserve.reserve.entity.Facility;
 import com.reserve.reserve.exception.ApiException;
@@ -19,6 +20,16 @@ public class CourtServiceImpl implements CourtService{
 
     private final CourtRepository courtRepository;
     private final FacilityRepository facilityRepository;
+
+    @Override
+    @Transactional
+    public void modifyCourt(Long courtId, ModifyCourt entity) {
+        Court court = courtRepository.findById(courtId)
+        .orElseThrow(() -> new ApiException("404", "코트 데이터가 존재하지 않습니다."));
+
+        court.modifyCourt(entity);
+        
+    }
 
     @Override
     @Transactional

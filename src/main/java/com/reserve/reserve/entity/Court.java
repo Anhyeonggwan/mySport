@@ -3,6 +3,10 @@ package com.reserve.reserve.entity;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Comment;
+import org.hibernate.annotations.DynamicUpdate;
+
+import com.reserve.reserve.dto.ModifyCourt;
+import com.reserve.reserve.util.Utils;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,6 +30,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "courts")
 @Getter
+@DynamicUpdate // 변경한 필드만 대응
 public class Court {
 
     @Id
@@ -44,7 +49,7 @@ public class Court {
     private String description;
 
     @Column(nullable = false)
-    private String capacity;
+    private int capacity;
 
     @Comment("true : 실내, false : 야외")
     @Column(columnDefinition = "TINYINT(1) default 1")
@@ -61,5 +66,15 @@ public class Court {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FACILITY_IDX")
     private Facility facility;
+
+    public void modifyCourt(ModifyCourt modifyCourt){
+        this.name = modifyCourt.getName();
+        this.sportType = modifyCourt.getSportType();
+        this.description = modifyCourt.getDescription();
+        this.capacity = modifyCourt.getCapacity();
+        this.indoor = modifyCourt.isIndoor();
+        this.active = modifyCourt.isActive();
+        this.updateAt = Utils.dateFormat(LocalDateTime.now());
+    }
 
 }

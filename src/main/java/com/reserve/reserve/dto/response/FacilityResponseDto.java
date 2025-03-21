@@ -82,7 +82,7 @@ public class FacilityResponseDto {
         private String courtName;
         private SportType sportType;
         private String description;
-        private String capacity;
+        private int capacity;
         private boolean indoor;
         private boolean active;
 

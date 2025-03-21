@@ -22,18 +22,25 @@ public class MatchDetailDto {
     private LocalDate matchDate;
     private int matchTime;
     private String managerName;
+    private int remainPlayer;
     private CourtDetailDto courtDetailDto;
 
-    public static MatchDetailDto toMatchDetailDto(Match match){
+    public static MatchDetailDto toMatchDetailDto(Match match, int count){
         MatchDetailDto matchDetailDto = MatchDetailDto.builder()
         .matchId(match.getIdx())
         .teamCapacity(match.getTeamCapacity())
         .matchPrice(match.getMatchPrice())
         .matchTime(match.getMatchTime())
         .matchDate(match.getMatchDate())
+        .remainPlayer(remainPlayer(match.getTeamCapacity(), count))
         .courtDetailDto(CourtDetailDto.toCourtDetailDto(match.getCourt()))
         .build();
         return matchDetailDto;
+    }
+
+    // 마감까지 남은 사람 수
+    private static int remainPlayer(int matchPlayer, int count){
+        return matchPlayer - count;
     }
 
     @NoArgsConstructor

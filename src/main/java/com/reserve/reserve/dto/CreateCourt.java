@@ -21,7 +21,7 @@ public class CreateCourt {
     private String name;
     private SportType sportType;
     private String description;
-    private String capacity;
+    private int capacity;
     private boolean indoor;
     private boolean active;
     private Long facilityId;
