@@ -2,6 +2,7 @@ package com.reserve.reserve.dto;
 
 import java.time.LocalDate;
 
+import com.reserve.reserve.entity.MatchStatus;
 import com.reserve.reserve.entity.SportType;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +21,10 @@ public class MatchListRequest {
     private int pageNumber;
     private int pageSize;
     
+    private MatchStatus matchStatus;
     private SportType sportType;
+    private int teamCapacity;
     private LocalDate startDate;
     private LocalDate endDate;
-
+    private int playerCnt;
 }

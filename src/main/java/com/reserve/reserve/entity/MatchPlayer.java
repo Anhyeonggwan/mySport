@@ -38,7 +38,7 @@ public class MatchPlayer {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY) // lazy 지연로딩, eager 즉시 로딩 toOne은 지연로딩 사용
-    @JoinColumn(name = "MATCH_ID")
+    @JoinColumn(name = "MATCH_ID", referencedColumnName = "idx")
     private Match match;
 
     public void spendPoint(){

@@ -26,6 +26,7 @@ import com.reserve.reserve.dto.CreateMatch;
 import com.reserve.reserve.dto.CreateMatchPlayer;
 import com.reserve.reserve.dto.MatchListRequest;
 import com.reserve.reserve.dto.response.MatchDetailDto;
+import com.reserve.reserve.dto.response.MatchPageResponseDto;
 import com.reserve.reserve.dto.response.MatchResponseDto;
 import com.reserve.reserve.dto.search.MatchSearchDto;
 import com.reserve.reserve.entity.Match;
@@ -75,15 +76,17 @@ public class MatchTest {
     void matchPagingTest(){
         /* given */
         MatchListRequest request = MatchListRequest.builder()
-        .pageNumber(1)
+        .pageNumber(0)
         .pageSize(10)
+        .matchStatus(MatchStatus.APPLICABLE)
+        .startDate(LocalDate.of(2025, 3, 21))
+        .endDate(LocalDate.of(2025, 3, 21))
         .build();
-        //Pageable pageable = PageRequest.of(0, 10, Sort.by("idx"));
 
         /* when */
-        //Page
-        //Page<Match> result = matchRepository.findAll(pageable);
-        System.out.println("test >>> 1");
+        Page<MatchPageResponseDto> matchPages = matchService.getAllMatches(request);
+
+        Assertions.assertThat(matchPages.getNumberOfElements()).isEqualTo(9);
     }
 
     @Test

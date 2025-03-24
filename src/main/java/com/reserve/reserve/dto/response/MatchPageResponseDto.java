@@ -27,5 +27,6 @@ public class MatchPageResponseDto {
     private int matchTime;
     private String courtName;
     private SportType sportType;
+    private Long playerCnt;
 
 }

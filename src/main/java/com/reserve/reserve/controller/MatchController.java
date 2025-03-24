@@ -65,7 +65,6 @@ public class MatchController {
 
     @GetMapping("/allMatches")
     public ResponseEntity<Page<MatchPageResponseDto>> getMatches(@RequestBody MatchListRequest request) {
-        //List<MatchResponseDto> matches = matchService.getMatches();
         Page<MatchPageResponseDto> page = matchService.getAllMatches(request);
         return ResponseEntity.ok(page);
     }
