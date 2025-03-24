@@ -31,7 +31,7 @@ public class MatchCustomRepositoryImpl implements MatchCustomRepositury{
 
     private final JPAQueryFactory query;
 
-    QMatch match = QMatch.match;
+    private QMatch match = QMatch.match;
 
     @Override
     public Page<MatchPageResponseDto> getMatches(MatchListRequest request, Pageable pageable) {
@@ -51,6 +51,7 @@ public class MatchCustomRepositoryImpl implements MatchCustomRepositury{
                 , matchPlayer.count().as("playerCnt")
             )
         ).from(match)
+        .leftJoin(match.court)
         .leftJoin(matchPlayer).on(matchPlayer.match.eq(match))
         .groupBy(match.idx)
         .where(
